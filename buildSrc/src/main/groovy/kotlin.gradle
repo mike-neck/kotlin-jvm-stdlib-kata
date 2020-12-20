@@ -18,6 +18,12 @@ test {
     useJUnitPlatform()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
 spotless {
     kotlin {
         ktfmt()

@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 /**
- * In this course, you will work with these functions. 
- * 
+ * In this course, you will work with these functions.
+ *
  * - [List.flatMap]
  * - [List.filter]
  * - [List.filterIndexed]
@@ -55,7 +55,7 @@ class Exercise2 {
     // Replace { Person() } block, with a method call on `people` to find 'Mary Smith'
     val person: Person = people { Person() }
 
-    assertAll { 
+    assertAll {
       test { person.firstName shouldBe "Mary" }
       test { person.lastName shouldBe "Smith" }
     }
@@ -74,9 +74,9 @@ class Exercise2 {
     // Replace { setOf } block, with a method call on `people` of mapping to distinct `PetType`.
     val allPetTypes: Set<PetType> = people { setOf() }
 
-    allPetTypes shouldBe setOf(
-      PetType.CAT, PetType.DOG, PetType.TURTLE, PetType.HAMSTER, PetType.BIRD, PetType.SNAKE
-    )
+    allPetTypes shouldBe
+        setOf(
+            PetType.CAT, PetType.DOG, PetType.TURTLE, PetType.HAMSTER, PetType.BIRD, PetType.SNAKE)
   }
 
   @Test
@@ -84,8 +84,6 @@ class Exercise2 {
     // Transform people into a list of first names
     val firstNames: List<String> = people { listOf() }
 
-    firstNames shouldBe listOf(
-      "Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John"
-    )
+    firstNames shouldBe listOf("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John")
   }
 }

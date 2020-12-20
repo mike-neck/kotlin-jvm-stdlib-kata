@@ -4,14 +4,14 @@ import com.example.pets.Person
 import com.example.pets.Pet
 import com.example.pets.PetType
 
-fun <T: Any> iterables(configure: IterableBuilder<T>.() -> Unit): IterableBuilder<T> =
-  IterableBuilder(mutableListOf<T>()).also(configure)
+fun <T : Any> iterables(configure: IterableBuilder<T>.() -> Unit): IterableBuilder<T> =
+    IterableBuilder(mutableListOf<T>()).also(configure)
 
-class Mutator<T: Any>(private val item: IterableBuilder<T>) {
-  operator fun invoke(content: T) = item.mutableList.add(content).let { }
+class Mutator<T : Any>(private val item: IterableBuilder<T>) {
+  operator fun invoke(content: T) = item.mutableList.add(content).let {}
 }
 
-class IterableBuilder<T: Any>(internal val mutableList: MutableList<T>) {
+class IterableBuilder<T : Any>(internal val mutableList: MutableList<T>) {
 
   val add: Mutator<T> = Mutator(this)
 
@@ -21,15 +21,13 @@ class IterableBuilder<T: Any>(internal val mutableList: MutableList<T>) {
 }
 
 fun Mutator<Person>.person(configure: PersonBuilder.() -> Unit): Unit =
-  this(PersonBuilder().also(configure).toPerson())
+    this(PersonBuilder().also(configure).toPerson())
 
 class PersonBuilder(
-  var firstName: String?,
-  var lastName: String?,
-  private val owns: MutableList<Pet>
+    var firstName: String?, var lastName: String?, private val owns: MutableList<Pet>
 ) {
 
-  constructor(): this(null, null, mutableListOf())
+  constructor() : this(null, null, mutableListOf())
 
   fun pet(configure: PetBuilder.() -> Unit) {
     val petBuilder = PetBuilder(null, null, null)
@@ -37,31 +35,28 @@ class PersonBuilder(
     owns.add(petBuilder.toPet())
   }
 
-  fun toPerson(): Person = Person(
-    firstName ?: throw invalidData(firstName, lastName),
-    lastName ?: throw invalidData(firstName, lastName),
-    owns
-  )
+  fun toPerson(): Person =
+      Person(
+          firstName ?: throw invalidData(firstName, lastName),
+          lastName ?: throw invalidData(firstName, lastName),
+          owns)
 
   companion object {
     fun invalidData(firstName: String?, lastName: String?): Throwable =
-      IllegalArgumentException("all parameters are required[firstName:$firstName,lastName:$lastName]")
+        IllegalArgumentException(
+            "all parameters are required[firstName:$firstName,lastName:$lastName]")
   }
 }
 
-class PetBuilder(
-  var type: PetType?,
-  var name: String?,
-  var age: Int?
-) {
-  fun toPet(): Pet = Pet(
-    type ?: throw invalidData(type, name, age),
-    name ?: throw invalidData(type, name, age),
-    age ?: throw invalidData(type, name, age)
-  )
+class PetBuilder(var type: PetType?, var name: String?, var age: Int?) {
+  fun toPet(): Pet =
+      Pet(
+          type ?: throw invalidData(type, name, age),
+          name ?: throw invalidData(type, name, age),
+          age ?: throw invalidData(type, name, age))
 
   companion object {
-    private fun invalidData(type: PetType?, name: String?, age: Int?): Throwable
-        = IllegalArgumentException("all parameters are required[type:$type,name:$name,age:$age]")
+    private fun invalidData(type: PetType?, name: String?, age: Int?): Throwable =
+        IllegalArgumentException("all parameters are required[type:$type,name:$name,age:$age]")
   }
 }

@@ -17,7 +17,7 @@ class Exercise1 {
   // This method can be deleted
   @BeforeEach
   fun notNullIterable(people: People) {
-    assertAll { 
+    assertAll {
       test { people shouldNotBe null }
       test { people.items shouldHaveAtLeastSize 1 }
     }
@@ -28,7 +28,8 @@ class Exercise1 {
     // Replace a block { mutableListOf() }, with a transformation method on Iterable(= people)
     val firstNames: MutableList<String> = people { mutableListOf() } // people.items...
 
-    val expectedFirstNames: List<String> = listOf("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John")
+    val expectedFirstNames: List<String> =
+        listOf("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John")
 
     firstNames shouldBe expectedFirstNames
   }
@@ -37,11 +38,12 @@ class Exercise1 {
   @Test
   fun namesOfMarySmithsPets(people: People) {
     // Find person having name "Mary Smith"
-    val mayPerson: Person? = people {
-      // You can know a person has name "May Smith" via named(String) function
-      // val boolean: Boolean = person.named("Mary Smith")
-      Person("", "", mutableListOf())
-    }
+    val mayPerson: Person? =
+        people {
+          // You can know a person has name "May Smith" via named(String) function
+          // val boolean: Boolean = person.named("Mary Smith")
+          Person("", "", mutableListOf())
+        }
     val person: Person = mayPerson ?: throw IllegalStateException("$mayPerson should be not null")
 
     val pets: List<Pet> = person.pets
