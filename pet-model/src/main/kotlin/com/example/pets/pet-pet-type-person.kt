@@ -26,6 +26,9 @@ data class Person(
   val lastName: String,
   private val ownsPets: MutableList<Pet>
 ) {
+
+  constructor(): this("", "", mutableListOf())
+
   @TestOnly
   operator fun <T> invoke(imitation: () -> T): T = imitation()
 
