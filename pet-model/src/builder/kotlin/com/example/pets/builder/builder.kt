@@ -7,7 +7,9 @@ import com.example.pets.PetType
 fun <T: Any> iterables(configure: IterableBuilder<T>.() -> Unit): IterableBuilder<T> =
   IterableBuilder(mutableListOf<T>()).also(configure)
 
-class Mutator<T: Any>(internal val item: IterableBuilder<T>)
+class Mutator<T: Any>(private val item: IterableBuilder<T>) {
+  operator fun invoke(content: T) = item.mutableList.add(content).let { }
+}
 
 class IterableBuilder<T: Any>(internal val mutableList: MutableList<T>) {
 
@@ -19,7 +21,7 @@ class IterableBuilder<T: Any>(internal val mutableList: MutableList<T>) {
 }
 
 fun Mutator<Person>.person(configure: PersonBuilder.() -> Unit): Unit =
-  this.item.mutableList.add(PersonBuilder().also(configure).toPerson()).let {  }
+  this(PersonBuilder().also(configure).toPerson())
 
 class PersonBuilder(
   var firstName: String?,
