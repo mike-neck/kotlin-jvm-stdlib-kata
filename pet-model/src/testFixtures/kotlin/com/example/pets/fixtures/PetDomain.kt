@@ -8,7 +8,6 @@ import com.example.pets.builder.person
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.api.extension.ParameterContext
 import org.junit.jupiter.api.extension.ParameterResolver
-import java.lang.reflect.ParameterizedType
 
 class PetDomain: ParameterResolver {
 
