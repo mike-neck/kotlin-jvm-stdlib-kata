@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+    id 'kotlin'
+}
+
+dependencies {
+    implementation(project(':pet-model')) { ModuleDependency mod ->
+        capabilities {
+            requireCapability("${mod.group}:${mod.name}-builder")
+        }
+    }
+    testImplementation testFixtures(project(':pet-model'))
+}

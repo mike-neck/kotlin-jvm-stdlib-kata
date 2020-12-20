@@ -1,0 +1,29 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+    id 'java-test-fixtures'
+}
+
+sourceSets {
+    builder {
+        kotlin {
+            srcDir 'src/builder/kotlin'
+        }
+    }
+}
+
+java {
+    registerFeature('builder') {
+        usingSourceSet sourceSets.builder
+    }
+}
+
+dependencies {
+    api project(':extra-data-types')
+    builderApi project(':extra-data-types')
+    builderApi sourceSets.main.output
+    testFixturesApi sourceSets.builder.output
+    testFixturesApi 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+}
+
+assemble.dependsOn builderJar

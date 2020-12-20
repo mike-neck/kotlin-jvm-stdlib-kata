@@ -1,0 +1,6 @@
+rootProject.name = 'kotlin-jvm-stdlib-kata'
+
+include 'extra-data-types'
+include 'pet-model'
+include 'pet-kata'
+
