@@ -25,7 +25,7 @@ class Exercise1 {
 
   @Test
   fun firstNamesOfAllPeople(people: People) {
-    // Replace a block { mutableListOf() }, with a transformation method on MutableList(people.items)
+    // Replace a block { mutableListOf() }, with a transformation method on Iterable(= people)
     val firstNames: MutableList<String> = people { mutableListOf() } // people.items...
 
     val expectedFirstNames: List<String> = listOf("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John")
@@ -33,10 +33,11 @@ class Exercise1 {
     firstNames shouldBe expectedFirstNames
   }
 
+  @Suppress("RedundantNullableReturnType")
   @Test
   fun namesOfMarySmithsPets(people: People) {
     // Find person having name "Mary Smith"
-    val mayPerson: Person? = people<Person?> {
+    val mayPerson: Person? = people {
       // You can know a person has name "May Smith" via named(String) function
       // val boolean: Boolean = person.named("Mary Smith")
       Person("", "", mutableListOf())
@@ -53,7 +54,7 @@ class Exercise1 {
 
   @Test
   fun peopleWithCats(people: People) {
-    // Replace a block { mutableListOf() }, with a positive filtering method on MutableList()
+    // Replace a block { mutableListOf() }, with a positive filtering method on MutableList(=people)
     val peopleWithCats: MutableList<Person> = people { mutableListOf() }
 
     peopleWithCats shouldHaveSize 2
@@ -61,7 +62,7 @@ class Exercise1 {
 
   @Test
   fun peopleWithoutCats(people: People) {
-    // Replace a block { mutableListOf() }, with a negative filtering method on MutableList()
+    // Replace a block { mutableListOf() }, with a negative filtering method on MutableList(=people)
     val peopleWithCats: MutableList<Person> = people { mutableListOf() }
 
     peopleWithCats shouldHaveSize 6
