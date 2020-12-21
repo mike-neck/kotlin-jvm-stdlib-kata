@@ -1,3 +1,7 @@
 package com.example.pets
 
-data class People(val items: MutableList<Person>) : Iterable<Person> by items
+import java.util.stream.*
+
+data class People(val items: MutableList<Person>) : Iterable<Person> by items {
+  fun stream(): Stream<Person> = this.toList().stream()
+}
