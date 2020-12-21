@@ -48,6 +48,18 @@ class Exercise4 {
         }
       }
 
+  @TestFactory
+  fun streamsToKotlinStdLibRefactor1(people: People) =
+      dynamic {
+        failAll("Refactor the stream API code to kotlin stdlib. Do not forget to remove this line.")
+        val person: Person =
+            people.stream().filter { it.named("Bob Smith") }.findFirst().orElseThrow()
+
+        val names: String = person.pets.stream().map { it.name }.collect(Collectors.joining(" & "))
+
+        test("names should be Dolly & Spot") { names shouldBe "Dolly & Spot" }
+      }
+
   companion object {
     fun Double.withDelta(delta: Double): Matcher<Double> =
         object : Matcher<Double> {
