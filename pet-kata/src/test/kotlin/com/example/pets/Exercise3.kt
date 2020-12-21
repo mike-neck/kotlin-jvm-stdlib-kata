@@ -3,6 +3,8 @@ package com.example.pets
 import com.example.pets.fixtures.PetDomain
 import com.example.pets.fixtures.dynamic
 import data.Bag
+import data.Multimap
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -14,6 +16,7 @@ class Exercise3 {
   @TestFactory
   fun countByPetType(people: People): Iterable<DynamicTest> =
       dynamic {
+        // Frequent pattern
         val petTypes: List<PetType> = people.flatMap { it.pets }.map { it.type }
         val petTypeCounts: MutableMap<PetType, Int> = mutableMapOf()
         for (petType in petTypes) {
@@ -37,5 +40,28 @@ class Exercise3 {
         test("The count of snake is 1") { counts[PetType.SNAKE] shouldBe 1 }
         test("The count of turtle is 1") { counts[PetType.TURTLE] shouldBe 1 }
         test("The count of bird is 1") { counts[PetType.BIRD] shouldBe 1 }
+      }
+
+  @TestFactory
+  fun peopleByLastName(people: People) =
+      dynamic {
+        // Frequent pattern
+        val lastNamesToPeople: MutableMap<String, MutableList<Person>> = mutableMapOf()
+        for (person in people) {
+          var peopleWithSameName = lastNamesToPeople[person.lastName]
+          if (peopleWithSameName == null) {
+            peopleWithSameName = mutableListOf()
+            lastNamesToPeople[person.lastName] = peopleWithSameName
+          }
+          peopleWithSameName.add(person)
+        }
+        test("There is 3 people named Smith") {
+          lastNamesToPeople.getValue("Smith") shouldHaveSize 3
+        }
+
+        // Hint: use the appropriate method on `people` to create a Multimap<String, Person>
+        // Hint: Multimap<K, V> is an alias for `Map<K, List<V>>`
+        val groupByLastName: Multimap<String, Person> = people { mapOf() }
+        test("There is 3 people named Smith") { groupByLastName.getValue("Smith") shouldHaveSize 3 }
       }
 }
