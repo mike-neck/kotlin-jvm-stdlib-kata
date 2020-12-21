@@ -1,5 +1,3 @@
-package com.example.pets.fixtures
-
-import com.example.pets.Person
+package com.example.pets
 
 data class People(val items: MutableList<Person>) : Iterable<Person> by items

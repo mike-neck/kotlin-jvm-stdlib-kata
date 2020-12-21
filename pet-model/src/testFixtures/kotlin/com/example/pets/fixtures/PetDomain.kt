@@ -1,5 +1,6 @@
 package com.example.pets.fixtures
 
+import com.example.pets.People
 import com.example.pets.Person
 import com.example.pets.PetType
 import com.example.pets.builder.IterableBuilder

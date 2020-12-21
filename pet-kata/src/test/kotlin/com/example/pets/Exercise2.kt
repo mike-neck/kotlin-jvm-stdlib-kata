@@ -1,6 +1,5 @@
 package com.example.pets
 
-import com.example.pets.fixtures.People
 import com.example.pets.fixtures.PetDomain
 import com.example.pets.fixtures.assertAll
 import io.kotest.matchers.collections.shouldHaveSize
