@@ -4,6 +4,7 @@ import com.example.pets.fixtures.PetDomain
 import com.example.pets.fixtures.dynamic
 import data.Bag
 import data.Multimap
+import data.MutableMultimap
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicTest
@@ -46,7 +47,7 @@ class Exercise3 {
   fun peopleByLastName(people: People) =
       dynamic {
         // Frequent pattern
-        val lastNamesToPeople: MutableMap<String, MutableList<Person>> = mutableMapOf()
+        val lastNamesToPeople: MutableMultimap<String, Person> = mutableMapOf()
         for (person in people) {
           var peopleWithSameName = lastNamesToPeople[person.lastName]
           if (peopleWithSameName == null) {

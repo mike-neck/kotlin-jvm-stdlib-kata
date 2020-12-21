@@ -15,4 +15,4 @@ operator fun <T : Any> MutableBag<T>.plusAssign(t: T): Unit =
 
 typealias Multimap<K, V> = Map<K, List<V>>
 
-typealias MutableMultimap<K, V> = MutableMap<K, V>
+typealias MutableMultimap<K, V> = MutableMap<K, MutableList<V>>
