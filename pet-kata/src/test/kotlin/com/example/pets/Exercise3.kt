@@ -5,6 +5,8 @@ import com.example.pets.fixtures.dynamic
 import data.Bag
 import data.Multimap
 import data.MutableMultimap
+import data.MutableSetMultimap
+import data.SetMultimap
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicTest
@@ -64,5 +66,64 @@ class Exercise3 {
         // Hint: Multimap<K, V> is an alias for `Map<K, List<V>>`
         val groupByLastName: Multimap<String, Person> = people { mapOf() }
         test("There is 3 people named Smith") { groupByLastName.getValue("Smith") shouldHaveSize 3 }
+      }
+
+  @TestFactory
+  fun peopleByTheirPets(people: People) =
+      dynamic {
+        // Frequent pattern
+        // Hint: MutableSetMultimap<K, V> is an alias for MutableMap<K, MutableSet<V>>
+        val peopleByPetType: MutableSetMultimap<PetType, Person> = mutableMapOf()
+        for (person in people) {
+          for (pet in person.pets) {
+            var peopleWithPetType = peopleByPetType[pet.type]
+            if (peopleWithPetType == null) {
+              peopleWithPetType = mutableSetOf()
+              peopleByPetType[pet.type] = peopleWithPetType
+            }
+            peopleWithPetType.add(person)
+          }
+        }
+
+        test("the count of people having cat") {
+          peopleByPetType.getValue(PetType.CAT) shouldHaveSize 2
+        }
+        test("the count of people having dog") {
+          peopleByPetType.getValue(PetType.DOG) shouldHaveSize 2
+        }
+        test("the count of people having hamster") {
+          peopleByPetType.getValue(PetType.HAMSTER) shouldHaveSize 1
+        }
+        test("the count of people having turtle") {
+          peopleByPetType.getValue(PetType.TURTLE) shouldHaveSize 1
+        }
+        test("the count of people having bird") {
+          peopleByPetType.getValue(PetType.BIRD) shouldHaveSize 1
+        }
+        test("the count of people having snake") {
+          peopleByPetType.getValue(PetType.SNAKE) shouldHaveSize 1
+        }
+
+        // Hint: use the appropriate method on `people` to create SetMultimap<PetType, Person>
+        // Hint: SetMultimap<K, V> is an alias for `Map<K, Set<V>>`
+        val distinctPeopleByPetType: SetMultimap<PetType, Person> = people { emptyMap() }
+        test("the count of people having cat") {
+          distinctPeopleByPetType.getValue(PetType.CAT) shouldHaveSize 2
+        }
+        test("the count of people having dog") {
+          distinctPeopleByPetType.getValue(PetType.DOG) shouldHaveSize 2
+        }
+        test("the count of people having hamster") {
+          distinctPeopleByPetType.getValue(PetType.HAMSTER) shouldHaveSize 1
+        }
+        test("the count of people having turtle") {
+          distinctPeopleByPetType.getValue(PetType.TURTLE) shouldHaveSize 1
+        }
+        test("the count of people having bird") {
+          distinctPeopleByPetType.getValue(PetType.BIRD) shouldHaveSize 1
+        }
+        test("the count of people having snake") {
+          distinctPeopleByPetType.getValue(PetType.SNAKE) shouldHaveSize 1
+        }
       }
 }
