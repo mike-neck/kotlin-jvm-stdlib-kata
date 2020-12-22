@@ -24,6 +24,8 @@ java {
     }
 }
 
+extensions.create('config', ProjectConfig, project)
+
 spotless {
     kotlin {
         ktfmt()

@@ -11,3 +11,9 @@ dependencies {
     }
     testImplementation testFixtures(project(':pet-model'))
 }
+
+config.kotlin.configureEach {
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
