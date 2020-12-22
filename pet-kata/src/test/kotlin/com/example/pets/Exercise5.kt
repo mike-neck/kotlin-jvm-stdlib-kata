@@ -7,6 +7,8 @@ import data.emptyPartitionList
 import data.rejected
 import data.selected
 import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.ints.shouldBeExactly
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,5 +24,14 @@ class Exercise5 {
         test("people without pets are 1") {
           partitionHavingPetAndNotHaving.rejected shouldHaveSize 1
         }
+      }
+
+  @TestFactory
+  fun oldestPet(people: People) =
+      dynamic {
+        val oldest: Pet = people { Pet() }
+
+        test("type is dog") { oldest.type shouldBe PetType.DOG }
+        test("age is 4") { oldest.age shouldBeExactly 4 }
       }
 }

@@ -12,9 +12,12 @@ enum class PetType {
   TURTLE,
   BIRD,
   SNAKE,
+  UNKNOWN,
 }
 
-data class Pet(val type: PetType, val name: String, val age: Int)
+data class Pet(val type: PetType, val name: String, val age: Int) {
+  constructor() : this(PetType.UNKNOWN, "", -1)
+}
 
 data class Person(
     val firstName: String, val lastName: String, private val ownsPets: MutableList<Pet>
