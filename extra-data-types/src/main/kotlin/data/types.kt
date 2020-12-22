@@ -20,3 +20,13 @@ typealias MutableMultimap<K, V> = MutableMap<K, MutableList<V>>
 typealias SetMultimap<K, V> = Map<K, Set<V>>
 
 typealias MutableSetMultimap<K, V> = MutableMap<K, MutableSet<V>>
+
+typealias PartitionList<T> = Pair<List<T>, List<T>>
+
+fun <T> emptyPartitionList(): PartitionList<T> = emptyList<T>() to emptyList()
+
+val <T : Any> PartitionList<T>.selected: List<T>
+  get() = this.first
+
+val <T : Any> PartitionList<T>.rejected: List<T>
+  get() = this.second
