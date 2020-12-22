@@ -1,9 +1,12 @@
 package com.example.pets
 
+import com.example.pets.builder.iterables
 import com.example.pets.fixtures.PetDomain
 import com.example.pets.fixtures.dynamic
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import java.util.stream.*
@@ -75,6 +78,28 @@ class Exercise4 {
         test("snake -> 1") { countByPetType.getValue(PetType.SNAKE) shouldBe 1 }
         test("turtle -> 1") { countByPetType.getValue(PetType.TURTLE) shouldBe 1 }
         test("bird -> 1") { countByPetType.getValue(PetType.BIRD) shouldBe 1 }
+      }
+
+  @TestFactory
+  fun streamToKotlinStdLibRefactor3(people: People) =
+      dynamic {
+        failAll("Refactor the stream API code to kotlin stdlib. Do not forget to remove this line.")
+        val top3Favorites =
+            people.stream()
+                .flatMap { it.pets.stream() }
+                .collect(Collectors.groupingBy(Pet::type, Collectors.counting()))
+                .entries
+                .stream()
+                .sorted(Comparator.comparingLong { -it.value })
+                .limit(3)
+                .map { it.toPair() }
+                .collect(Collectors.toUnmodifiableList())
+
+        test("it has size 3") { top3Favorites shouldHaveSize 3 }
+
+        test("people with cat is 2") { top3Favorites shouldContain (PetType.CAT to 2L) }
+        test("people with dog is 2") { top3Favorites shouldContain (PetType.DOG to 2L) }
+        test("people with hamster is 2") { top3Favorites shouldContain (PetType.HAMSTER to 2L) }
       }
 
   companion object {
