@@ -60,6 +60,23 @@ class Exercise4 {
         test("names should be Dolly & Spot") { names shouldBe "Dolly & Spot" }
       }
 
+  @TestFactory
+  fun streamToKotlinStdLibRefactor2(people: People) =
+      dynamic {
+        failAll("Refactor the stream API code to kotlin stdlib. Do not forget to remove this line.")
+        val countByPetType: Map<PetType, Long> =
+            people.stream()
+                .flatMap { it.pets.stream() }
+                .collect(Collectors.groupingBy(Pet::type, Collectors.counting()))
+
+        test("cat -> 2") { countByPetType.getValue(PetType.CAT) shouldBe 2 }
+        test("dog -> 2") { countByPetType.getValue(PetType.DOG) shouldBe 2 }
+        test("hamster -> 2") { countByPetType.getValue(PetType.HAMSTER) shouldBe 2 }
+        test("snake -> 1") { countByPetType.getValue(PetType.SNAKE) shouldBe 1 }
+        test("turtle -> 1") { countByPetType.getValue(PetType.TURTLE) shouldBe 1 }
+        test("bird -> 1") { countByPetType.getValue(PetType.BIRD) shouldBe 1 }
+      }
+
   companion object {
     fun Double.withDelta(delta: Double): Matcher<Double> =
         object : Matcher<Double> {
