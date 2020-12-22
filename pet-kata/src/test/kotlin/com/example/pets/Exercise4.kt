@@ -1,10 +1,7 @@
 package com.example.pets
 
-import com.example.pets.builder.iterables
 import com.example.pets.fixtures.PetDomain
 import com.example.pets.fixtures.dynamic
-import io.kotest.matchers.Matcher
-import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.should
@@ -101,22 +98,4 @@ class Exercise4 {
         test("people with dog is 2") { top3Favorites shouldContain (PetType.DOG to 2L) }
         test("people with hamster is 2") { top3Favorites shouldContain (PetType.HAMSTER to 2L) }
       }
-
-  companion object {
-    fun Double.withDelta(delta: Double): Matcher<Double> =
-        object : Matcher<Double> {
-          override fun test(value: Double): MatcherResult =
-              object : MatcherResult {
-
-                override fun failureMessage(): String =
-                    "$value does not equal to $this@withDelta within delta $delta"
-
-                override fun negatedFailureMessage(): String =
-                    "$value equals to $this@withDelta within delta $delta"
-
-                override fun passed(): Boolean =
-                    this@withDelta - delta <= value && value <= this@withDelta + delta
-              }
-        }
-  }
 }
