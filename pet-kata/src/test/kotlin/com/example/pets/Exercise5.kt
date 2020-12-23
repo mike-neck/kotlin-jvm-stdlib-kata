@@ -43,4 +43,14 @@ class Exercise5 {
 
     averageAge should 1.8888888888888888.withDelta(0.00001)
   }
+
+  @Test
+  fun addPetAgesToExistingSet(people: People) {
+    val petAges = mutableSetOf(5)
+    // Add pet ages to petAges set
+
+    val expected = setOf(1, 2, 3, 4, 5)
+
+    petAges shouldBe expected
+  }
 }
