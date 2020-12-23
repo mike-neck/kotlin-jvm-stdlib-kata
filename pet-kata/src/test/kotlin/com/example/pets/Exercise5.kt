@@ -8,7 +8,9 @@ import data.rejected
 import data.selected
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.ints.shouldBeExactly
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -34,4 +36,11 @@ class Exercise5 {
         test("type is dog") { oldest.type shouldBe PetType.DOG }
         test("age is 4") { oldest.age shouldBeExactly 4 }
       }
+
+  @Test
+  fun averageOfPetAge(people: People) {
+    val averageAge: Double = people { 0.0 }
+
+    averageAge should 1.8888888888888888.withDelta(0.00001)
+  }
 }
