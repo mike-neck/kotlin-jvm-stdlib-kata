@@ -4,11 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(':pet-model')) { ModuleDependency mod ->
-        capabilities {
-            requireCapability("${mod.group}:${mod.name}-builder")
-        }
-    }
+    implementation(project(':pet-model'))
     testImplementation testFixtures(project(':pet-model'))
 }
 
