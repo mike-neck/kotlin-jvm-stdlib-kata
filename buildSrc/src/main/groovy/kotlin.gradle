@@ -24,9 +24,7 @@ java {
     }
 }
 
-extensions.create('config', ProjectConfig, project)
-
-config.kotlin.configureEach {
+extensions.create('config', ProjectConfig, project).kotlin.configureEach {
     kotlinOptions {
         jvmTarget = '11'
     }
