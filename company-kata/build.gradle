@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+    id 'kotlin'
+}
+
+dependencies {
+    implementation(project(':company-model'))
+    testImplementation testFixtures(project(':company-model'))
+}
+
+config.kotlin.configureEach {
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}

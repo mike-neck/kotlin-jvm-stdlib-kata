@@ -4,3 +4,5 @@ include 'extra-data-types'
 include 'pet-model'
 include 'pet-kata'
 
+include 'company-model'
+include 'company-kata'

@@ -26,6 +26,12 @@ java {
 
 extensions.create('config', ProjectConfig, project)
 
+config.kotlin.configureEach {
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
 spotless {
     kotlin {
         ktfmt()
