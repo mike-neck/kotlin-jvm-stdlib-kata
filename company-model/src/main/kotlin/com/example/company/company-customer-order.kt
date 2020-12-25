@@ -26,7 +26,11 @@ data class Customer(
     get() = orders.sumOf { it.value }
 }
 
-class Supplier(val name: String, val itemNames: Array<String>) {
+class Supplier(
+    val name: String,
+    // TODO Refactor this Array into MutableList
+    val itemNames: Array<String>
+) {
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
@@ -51,6 +55,8 @@ class Supplier(val name: String, val itemNames: Array<String>) {
 
 data class Company(val name: String, val customers: MutableList<Customer> = mutableListOf()) {
 
+  // TODO Refactor this array based implementation to a MutableList based one.
+  // TODO Refactor this variable to final value(e.g. var -> val).
   var suppliers: Array<Supplier> = arrayOf()
 
   fun addCustomer(customer: Customer): Unit = Unit.apply { customers.add(customer) }
