@@ -4,10 +4,14 @@ data class LineItem(val name: String, val value: Double)
 
 data class Order(
     val orderNumber: Int,
-    var delivered: Boolean,
+    var delivered: Boolean = false,
     val lineItems: MutableList<LineItem> = mutableListOf()
 ) {
   fun deliver() = Unit.apply { delivered = true }
+
+  fun addLineItem(lineItem: LineItem) {
+    lineItems.add(lineItem)
+  }
 
   val value: Double
     get() =
