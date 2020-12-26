@@ -15,4 +15,12 @@ class Exercise1 {
 
     customerNames shouldBe expectedNames
   }
+
+  @Test
+  fun customerCities(company: Company) {
+    val customerCities: List<String> = company { emptyList() }
+    val expectedCities = listOf("London", "Liphook", "London")
+
+    customerCities shouldBe expectedCities
+  }
 }
