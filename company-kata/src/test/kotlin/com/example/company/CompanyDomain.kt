@@ -1,9 +1,16 @@
 package com.example.company
 
-object CompanyDomain {
+import org.junit.jupiter.api.extension.ExtensionContext
+import org.junit.jupiter.api.extension.ParameterContext
+import org.junit.jupiter.api.extension.ParameterResolver
 
-  @JvmStatic
-  fun testData(): Company {
+class CompanyDomain : ParameterResolver {
+
+  companion object {
+    operator fun <T : Any> Company.invoke(f: () -> T): T = f()
+  }
+
+  private fun testData(): Company {
     val company = Company("Bloggs Shed Supplies")
 
     company.suppliers {
@@ -120,9 +127,17 @@ object CompanyDomain {
 
   // This function does nothing, but separates code block from others.
   private fun setupCustomerAndOrders(setup: () -> Unit): Unit = setup()
+
+  override fun supportsParameter(
+      parameterContext: ParameterContext?, extensionContext: ExtensionContext?
+  ): Boolean = requireNotNull(parameterContext).parameter.type == Company::class.java
+
+  override fun resolveParameter(
+      parameterContext: ParameterContext?, extensionContext: ExtensionContext?
+  ): Company = testData()
 }
 
-class CompanySuppliersConfigurer(private val company: Company) {
+private class CompanySuppliersConfigurer(private val company: Company) {
   fun supplier(config: SupplierBuilder.() -> Unit) {
     val builder = SupplierBuilder()
     builder.config()
@@ -130,7 +145,7 @@ class CompanySuppliersConfigurer(private val company: Company) {
   }
 }
 
-class SupplierBuilder(
+private class SupplierBuilder(
     var name: String? = null, var itemNames: MutableList<String> = mutableListOf()
 ) {
   fun itemNames(vararg itemNames: String) {
