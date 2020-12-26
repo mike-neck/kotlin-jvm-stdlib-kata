@@ -8,9 +8,11 @@ import data.selected
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
+import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(CompanyDomain::class)
@@ -78,5 +80,11 @@ class Exercise2 {
         DynamicTest.dynamicTest("A customer does not live in London") {
           partitionList.rejected shouldHaveSize 1
         })
+  }
+
+  @Test
+  fun findMary(company: Company) {
+    val mary: Customer? = company.getCustomerNamed("Mary")
+    assertAll({ mary shouldNotBe null }, { mary?.name shouldBe "Mary" })
   }
 }
