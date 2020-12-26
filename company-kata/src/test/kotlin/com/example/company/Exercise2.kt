@@ -87,4 +87,10 @@ class Exercise2 {
     val mary: Customer? = company.getCustomerNamed("Mary")
     assertAll({ mary shouldNotBe null }, { mary?.name shouldBe "Mary" })
   }
+
+  @Test
+  fun findPete(company: Company) {
+    val pete: Customer? = company.getCustomerNamed("Pete")
+    pete shouldBe null
+  }
 }
