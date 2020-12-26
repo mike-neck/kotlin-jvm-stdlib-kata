@@ -1,6 +1,7 @@
 package com.example.company
 
 import com.example.company.CompanyDomain.Companion.invoke
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,5 +23,12 @@ class Exercise1 {
     val expectedCities = listOf("London", "Liphook", "London")
 
     customerCities shouldBe expectedCities
+  }
+
+  @Test
+  fun londonCustomers(company: Company) {
+    val customersFromLondon: List<Customer> = company { emptyList() }
+
+    customersFromLondon shouldHaveSize 2
   }
 }
