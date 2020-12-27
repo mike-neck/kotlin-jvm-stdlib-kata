@@ -180,7 +180,7 @@ class DynamicTestFactory(
   fun failAll(memo: String): Unit = beforeCallbacks.add { fail("$memo[$it]") }.let {}
 }
 
-fun dynamic(configure: DynamicTestFactory.() -> Unit): Iterable<DynamicTest> =
+inline fun dynamic(configure: DynamicTestFactory.() -> Unit): Iterable<DynamicTest> =
     DynamicTestFactory().also(configure).map {
       DynamicTest.dynamicTest(it.title) { it.executable() }
     }
