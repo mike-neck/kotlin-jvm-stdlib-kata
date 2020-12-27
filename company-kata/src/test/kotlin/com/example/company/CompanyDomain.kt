@@ -22,7 +22,7 @@ class CompanyDomain : ParameterResolver {
       }
       supplier {
         name = "Splendid Crocks"
-        itemNames("cup", "saucer", "bowl")
+        itemNames("cup", "saucer", "bowl", /* customized from original */ "chair")
       }
       supplier {
         name = "Annoying Pets"
