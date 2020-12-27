@@ -15,6 +15,8 @@ operator fun <T : Any> MutableBag<T>.plusAssign(t: T): Unit =
 
 typealias Multimap<K, V> = Map<K, List<V>>
 
+fun <K : Any, V : Any> Multimap<K, V>.getOrEmpty(key: K): List<V> = this[key] ?: emptyList()
+
 typealias MutableMultimap<K, V> = MutableMap<K, MutableList<V>>
 
 typealias SetMultimap<K, V> = Map<K, Set<V>>
