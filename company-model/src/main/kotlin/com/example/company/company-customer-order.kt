@@ -4,7 +4,11 @@ typealias CityName = String
 
 typealias ItemName = String
 
-data class LineItem(val name: ItemName, val value: Double)
+typealias Value = Double
+
+typealias OrderValue = Value
+
+data class LineItem(val name: ItemName, val value: Value)
 
 data class Order(
     val orderNumber: Int,
@@ -17,7 +21,7 @@ data class Order(
     lineItems.add(lineItem)
   }
 
-  val value: Double
+  val value: OrderValue
     get() =
         lineItems
             .filter { TODO("remove this line and refactor to use sumOf {}") }
@@ -30,7 +34,7 @@ data class Customer(
 ) {
   fun addOrder(order: Order): Unit = Unit.apply { orders.add(order) }
 
-  val totalOrderValue: Double
+  val totalOrderValue: OrderValue
     get() = orders.sumOf { it.value }
 }
 

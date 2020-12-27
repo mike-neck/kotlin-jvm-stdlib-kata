@@ -1,5 +1,8 @@
 package data
 
+import java.util.*
+import kotlin.Comparator
+
 typealias Bag<T> = Map<T, Int>
 
 operator fun <T : Any> Bag<T>.plus(t: T): Bag<T> =
@@ -12,6 +15,18 @@ fun <T : Any> MutableBag<T>.add(t: T): Unit =
 
 operator fun <T : Any> MutableBag<T>.plusAssign(t: T): Unit =
     this.compute(t) { _, count -> if (count == null) 1 else count + 1 }.let {}
+
+typealias SortedBag<T> = SortedMap<T, Int>
+
+fun <T : Comparable<T>> sortedBagOf(
+    vararg values: T, comparator: Comparator<T> = Comparator.naturalOrder()
+): SortedBag<T> {
+  val map = TreeMap<T, Int>(comparator)
+  for (value in values) {
+    map.compute(value) { _: T, count: Int? -> if (count == null) 1 else count + 1 }
+  }
+  return map
+}
 
 typealias Multimap<K, V> = Map<K, List<V>>
 
