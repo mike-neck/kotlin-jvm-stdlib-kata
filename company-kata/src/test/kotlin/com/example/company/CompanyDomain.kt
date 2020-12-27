@@ -177,6 +177,13 @@ class DynamicTestFactory(
               })
           .let {}
 
+  fun <T : Any> itemsAllSatisfy(
+      title: String, targets: Iterable<T>?, executable: (T) -> Unit
+  ): Unit =
+      if (targets == null) test(title) { fail { "targets do not satisfy anything $title" } }
+      else
+          targets.forEachIndexed { index, target -> test("$title - $index") { executable(target) } }
+
   fun failAll(memo: String): Unit = beforeCallbacks.add { fail("$memo[$it]") }.let {}
 }
 
