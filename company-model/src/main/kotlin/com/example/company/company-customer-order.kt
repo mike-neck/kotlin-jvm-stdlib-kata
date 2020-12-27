@@ -1,6 +1,10 @@
 package com.example.company
 
-data class LineItem(val name: String, val value: Double)
+typealias CityName = String
+
+typealias ItemName = String
+
+data class LineItem(val name: ItemName, val value: Double)
 
 data class Order(
     val orderNumber: Int,
@@ -22,7 +26,7 @@ data class Order(
 }
 
 data class Customer(
-    val name: String, val city: String, val orders: MutableList<Order> = mutableListOf()
+    val name: String, val city: CityName, val orders: MutableList<Order> = mutableListOf()
 ) {
   fun addOrder(order: Order): Unit = Unit.apply { orders.add(order) }
 
@@ -33,7 +37,7 @@ data class Customer(
 class Supplier(
     val name: String,
     // TODO Refactor this Array into MutableList
-    val itemNames: Array<String>
+    val itemNames: Array<ItemName>
 ) {
 
   override fun equals(other: Any?): Boolean {

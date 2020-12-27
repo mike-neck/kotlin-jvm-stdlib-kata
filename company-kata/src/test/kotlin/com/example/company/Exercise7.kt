@@ -10,10 +10,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.extension.ExtendWith
 
-typealias CityName = String
-
-typealias ItemName = String
-
 @ExtendWith(CompanyDomain::class)
 class Exercise7 {
 
