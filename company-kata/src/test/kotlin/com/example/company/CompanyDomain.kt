@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ParameterResolver
 class CompanyDomain : ParameterResolver {
 
   companion object {
-    operator fun <T : Any> Company.invoke(f: () -> T): T = f()
+    operator fun <T> Company.invoke(f: () -> T): T = f()
   }
 
   private fun testData(): Company {
