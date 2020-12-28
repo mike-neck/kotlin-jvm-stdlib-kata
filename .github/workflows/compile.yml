@@ -1,0 +1,31 @@
+name: Compile check
+on:
+  push:
+    branches:
+      - main
+
+jobs: 
+  compile:
+    runs-on: ubuntu-20.04
+    name: Compile check
+    timeout-minutes: 5
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: setup Java
+        uses: actions/setup-java@v1
+
+      - name: Gradle Cache
+        id: gradle-cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            .build-cache
+          key: gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('**/gradle-wrapper.properties') }}
+          restore-keys: gradle-
+
+      - name: Compile
+        run: ./gradlew compileTestKotlin

@@ -6,3 +6,9 @@ include 'pet-kata'
 
 include 'company-model'
 include 'company-kata'
+
+buildCache {
+    local {
+        directory(new File('.build-cache'))
+    }
+}
