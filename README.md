@@ -19,7 +19,8 @@ What you will need to build the katas
 Initialize Kata
 ---
 
-Clone this repo or simply download and extract the master zip file (and unzip it), then follow the instructions below for your IDE/platform.
+Clone this repo or simply download and extract the zip file from [release page](https://github.com/mike-neck/kotlin-jvm-stdlib-kata/releases),
+then follow the instructions below for your IDE/platform.
 
 ### IntelliJ IDEA users
 
