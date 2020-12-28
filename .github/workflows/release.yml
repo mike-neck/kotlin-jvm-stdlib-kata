@@ -1,0 +1,40 @@
+name: Release By Tag
+on:
+  workflow_dispatch: 
+    inputs: 
+      level:
+        description: 'Release level available values: major, minor, patch'
+        required: true
+
+jobs: 
+  tag:
+    name: Create Tag
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+    steps:
+      - name: verify inputs
+        run: echo "${LEVEL}" | grep -E -q '(major|minor|patch)'
+        env:
+          LEVEL: ${{ github.event.inputs.level }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: current version
+        uses: actions-ecosystem/action-get-latest-tag@v1
+        id: current-version
+        with:
+          semver_only: true
+
+      - name: "calculate next version (from: ${{ steps.current-version.outputs.tag }}, up: ${{ github.event.inputs.level }})"
+        id: next-version
+        uses: actions-ecosystem/action-bump-semver@v1
+        with:
+          current_version: ${{ steps.current-version.outputs.tag }}
+          level: ${{ github.event.inputs.level }}
+
+      - name: push tag
+        uses: actions-ecosystem/action-push-tag@v1
+        with:
+          tag: ${{ steps.next-version.outputs.new_version }}
+          message: "Release version ${{ steps.next-version.outputs.new_version }}"
