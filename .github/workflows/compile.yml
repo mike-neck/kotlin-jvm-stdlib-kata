@@ -7,14 +7,21 @@ on:
 jobs: 
   compile:
     runs-on: ubuntu-20.04
-    name: Compile check
-    timeout-minutes: 5
+    name: "Compile check (java-${{ matrix.java }})"
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        java:
+          - 11
+          - 15
     steps:
       - name: checkout
         uses: actions/checkout@v2
 
       - name: setup Java
         uses: actions/setup-java@v1
+        with: 
+          java-version: ${{ matrix.java }}
 
       - name: Gradle Cache
         id: gradle-cache
