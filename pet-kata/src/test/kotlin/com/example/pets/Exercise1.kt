@@ -25,7 +25,7 @@ class Exercise1 {
   @Test
   fun firstNamesOfAllPeople(people: People) {
     // Replace a block { mutableListOf() }, with a transformation method on Iterable(= people)
-    val firstNames: MutableList<String> = people { mutableListOf() } // people.items...
+    val firstNames: List<String> = people { listOf() } // people.items...
 
     val expectedFirstNames: List<String> =
         listOf("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John")
@@ -56,7 +56,7 @@ class Exercise1 {
   @Test
   fun peopleWithCats(people: People) {
     // Replace a block { mutableListOf() }, with a positive filtering method on MutableList(=people)
-    val peopleWithCats: MutableList<Person> = people { mutableListOf() }
+    val peopleWithCats: List<Person> = people { listOf() }
 
     peopleWithCats shouldHaveSize 2
   }
@@ -64,7 +64,7 @@ class Exercise1 {
   @Test
   fun peopleWithoutCats(people: People) {
     // Replace a block { mutableListOf() }, with a negative filtering method on MutableList(=people)
-    val peopleWithCats: MutableList<Person> = people { mutableListOf() }
+    val peopleWithCats: List<Person> = people { listOf() }
 
     peopleWithCats shouldHaveSize 6
   }
