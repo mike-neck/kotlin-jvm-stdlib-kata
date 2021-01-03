@@ -2,20 +2,13 @@ package com.example.pets.solutions
 
 import com.example.pets.People
 import com.example.pets.Person
-import com.example.pets.Pet
 import com.example.pets.PetType
 import com.example.pets.fixtures.PetDomain
 import com.example.pets.fixtures.dynamic
-import io.kotest.fp.toOption
-import io.kotest.matchers.collections.shouldContain
-import io.kotest.matchers.collections.shouldHaveSize
-import io.kotest.matchers.maps.shouldContain
-import io.kotest.matchers.maps.shouldHaveSize
 import io.kotest.matchers.sequences.shouldContain
 import io.kotest.matchers.sequences.shouldHaveSize
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
-import java.util.stream.*
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.extension.ExtendWith
 

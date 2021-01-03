@@ -36,3 +36,6 @@ jobs:
 
       - name: Compile
         run: ./gradlew compileTestKotlin
+
+      - name: Test for solution
+        run: ./gradlew :pet-solution:test
