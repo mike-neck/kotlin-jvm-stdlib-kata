@@ -12,3 +12,4 @@ buildCache {
         directory(new File('.build-cache'))
     }
 }
+include 'pet-solution'

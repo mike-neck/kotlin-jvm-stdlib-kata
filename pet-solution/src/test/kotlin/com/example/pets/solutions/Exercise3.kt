@@ -1,5 +1,8 @@
-package com.example.pets
+package com.example.pets.solutions
 
+import com.example.pets.People
+import com.example.pets.Person
+import com.example.pets.PetType
 import com.example.pets.fixtures.PetDomain
 import com.example.pets.fixtures.dynamic
 import data.Bag
@@ -33,10 +36,7 @@ class Exercise3 {
         test("The count of turtle is 1") { petTypeCounts[PetType.TURTLE] shouldBe 1 }
         test("The count of bird is 1") { petTypeCounts[PetType.BIRD] shouldBe 1 }
 
-        // TODO replace for loop with function call on Iterable<Person> to count people by pet type.
-        // Hint: use the appropriate method on `people` to create a Bag<PetType>
-        // Hint: Bag<PetType> is alias for Map<PetType, Int> in this tutorial
-        val counts: Bag<PetType> = people { mutableMapOf() }
+        val counts: Bag<PetType> = people.flatMap { it.pets }.groupingBy { it.type }.eachCount()
 
         test("The count of cat is 2") { counts[PetType.CAT] shouldBe 2 }
         test("The count of dog is 2") { counts[PetType.DOG] shouldBe 2 }
@@ -63,12 +63,7 @@ class Exercise3 {
           lastNamesToPeople.getValue("Smith") shouldHaveSize 3
         }
 
-        // TODO remove { mapOf } block and call appropriate function on Iterable<Person>
-        // TODO (i.e. people)
-        // TODO to grouping person by lastName
-        // Hint: use the appropriate method on `people` to create a Multimap<String, Person>
-        // Hint: Multimap<K, V> is an alias for `Map<K, List<V>>`
-        val groupByLastName: Multimap<String, Person> = people { mapOf() }
+        val groupByLastName: Multimap<String, Person> = people.groupBy { it.lastName }
         test("There is 3 people named Smith") { groupByLastName.getValue("Smith") shouldHaveSize 3 }
       }
 
@@ -76,7 +71,6 @@ class Exercise3 {
   fun peopleByTheirPets(people: People) =
       dynamic {
         // Frequent pattern
-        // Hint: MutableSetMultimap<K, V> is an alias for MutableMap<K, MutableSet<V>>
         val peopleByPetType: MutableSetMultimap<PetType, Person> = mutableMapOf()
         for (person in people) {
           for (pet in person.pets) {
@@ -108,12 +102,10 @@ class Exercise3 {
           peopleByPetType.getValue(PetType.SNAKE) shouldHaveSize 1
         }
 
-        // TODO remove { emptyMap } block, and call appropriate function on Iterable<Person>
-        // TODO (i.e. people)
-        // TODO to grouping distinct person by pet type.
-        // Hint: use the appropriate method on `people` to create SetMultimap<PetType, Person>
-        // Hint: SetMultimap<K, V> is an alias for `Map<K, Set<V>>`
-        val distinctPeopleByPetType: SetMultimap<PetType, Person> = people { emptyMap() }
+        val distinctPeopleByPetType: SetMultimap<PetType, Person> =
+            people.flatMap { it.petTypes.keys.map { p -> p to it } }
+                .groupBy({ it.first }, { it.second })
+                .mapValues { e -> e.value.toSet() }
         test("the count of people having cat") {
           distinctPeopleByPetType.getValue(PetType.CAT) shouldHaveSize 2
         }
