@@ -1,6 +1,5 @@
 package com.example.pets
 
-import com.example.pets.builder.person
 import com.example.pets.fixtures.PetDomain
 import com.example.pets.fixtures.dynamic
 import data.PartitionList
@@ -47,7 +46,7 @@ class Exercise5 {
 
   @Test
   fun addPetAgesToExistingSet(people: People) {
-    val petAges = mutableSetOf(5)
+    val petAges: MutableSet<Int> = mutableSetOf(5)
     // Add pet ages to petAges set
 
     val expected = setOf(1, 2, 3, 4, 5)
